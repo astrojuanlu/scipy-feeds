@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+<title>{% if label %} SciPy issues under "{{ label }}" label{% else %}All SciPy issues{% endif %}</title>
+{# <link rel="self" href="{{ feed_url }}" />
+<link href="{{ site_url }}"/>
+<updated>{{ updated }}</updated>
+<id>{{ id }}</id> #}
+{% for issue in issues %}
+<entry>
+    <title>{{ issue.title }}</title>
+    <link href="{{ issue.html_url }}"/>
+    <id>{{ issue.number }}</id>
+    <published>{{ issue.created_at }}</published>
+    <updated>{{ issue.updated_at }}</updated>
+    <content type="html">
+    <![CDATA[
+    {{ issue.body_html | safe }}
+    ]]>
+    </content>
+    <author>
+        <name>{{ issue.user.login }}</name>
+        <uri>{{ issue.user.url }}</uri>
+    </author>
+</entry>
+{% endfor %}
+</feed>
